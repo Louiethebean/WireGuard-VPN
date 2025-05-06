@@ -133,7 +133,7 @@ Pull requests are welcome! Open issues or submit improvements as needed.
 
 ## 📄 License
 
-MIT License. See [LICENSE](LICENSE) for more details.
+MIT License. See [LICENSE] for more details.
 
 ---
 
