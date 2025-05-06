@@ -1,0 +1,137 @@
+# WireGuard VPN Configuration Repository
+
+Welcome to the **WireGuard VPN Configurations** repository! This project provides complete examples and documentation for setting up **WireGuard VPN** servers and clients for secure, high-performance tunneling.
+
+
+## Overview
+
+**WireGuard** is a modern, extremely simple, and secure VPN protocol that uses state-of-the-art cryptography.
+
+This repository will help you:
+- Install and configure WireGuard VPN on Linux, Windows, macOS, and mobile devices
+- Establish secure tunnels between server and clients
+- Troubleshoot common WireGuard issues
+
+---
+
+## Prerequisites
+
+- Linux server (Ubuntu 20.04+ or Debian 10+ recommended)
+- Client devices (Linux, Windows, macOS, iOS, Android)
+- Root or administrative privileges
+- Public IP address for server (recommended)
+
+---
+
+## Installing WireGuard
+
+### Linux (Ubuntu/Debian)
+```bash
+sudo apt update
+sudo apt install wireguard
+```
+
+### Windows
+- Download and install the WireGuard client from [https://www.wireguard.com/install/](https://www.wireguard.com/install/)
+
+### macOS
+```bash
+brew install wireguard-tools
+```
+Or use the official WireGuard app from the App Store.
+
+### Mobile Devices
+- Install the **WireGuard** app from Google Play Store or Apple App Store.
+
+---
+
+## Server Configuration
+
+1. Generate private and public keys:
+```bash
+wg genkey | tee /etc/wireguard/server_private.key | wg pubkey > /etc/wireguard/server_public.key
+```
+
+2. Create server configuration file `/etc/wireguard/wg0.conf`:
+```ini
+[Interface]
+PrivateKey = <server_private_key>
+Address = 10.0.0.1/24
+ListenPort = 51820
+PostUp = ufw route allow in on wg0 out on eth0; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = ufw route delete allow in on wg0 out on eth0; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+[Peer]
+# Client example
+PublicKey = <client_public_key>
+AllowedIPs = 10.0.0.2/32
+```
+
+3. Enable and start WireGuard:
+```bash
+sudo systemctl enable wg-quick@wg0
+sudo systemctl start wg-quick@wg0
+```
+
+4. Allow UDP port 51820 on your firewall.
+
+---
+
+## Client Configuration
+
+Example client configuration (`client.conf` or via app UI):
+```ini
+[Interface]
+PrivateKey = <client_private_key>
+Address = 10.0.0.2/24
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = <server_public_key>
+Endpoint = <server_public_ip>:51820
+AllowedIPs = 0.0.0.0/0, ::/0
+PersistentKeepalive = 25
+```
+
+- **Note:** If using the mobile app, scan a QR code generated from this config for easy setup.
+
+---
+
+## Common Commands
+
+| Command | Description |
+|:--------|:------------|
+| `wg` | Show WireGuard status |
+| `sudo systemctl restart wg-quick@wg0` | Restart the WireGuard interface |
+| `sudo wg-quick up wg0` | Bring up the VPN tunnel |
+| `sudo wg-quick down wg0` | Bring down the VPN tunnel |
+
+---
+
+## Troubleshooting
+
+- **Cannot connect:** Check firewall rules and port forwarding settings.
+- **Handshake not responding:** Confirm correct keys and endpoint IP.
+- **IP Routing issues:** Ensure IP forwarding is enabled:
+```bash
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+```
+
+> **Tip:** Always review WireGuard logs with `sudo journalctl -u wg-quick@wg0` if troubleshooting.
+
+---
+
+## License
+
+This repository is licensed under the [MIT License](LICENSE).
+
+---
+
+# Quick Start
+```bash
+git clone https://github.com/yourusername/wireguard-configurations.git
+cd wireguard-configurations
+```
+
+Secure your network with WireGuard! 
