@@ -1,6 +1,10 @@
 # 🔐 WireGuard VPN Installation & Configuration Guide
 
+![License](https://img.shields.io/badge/license-MIT-blue) ![Platform](https://img.shields.io/badge/platform-Ubuntu%20%7C%20Debian-orange) ![Tool](https://img.shields.io/badge/tool-WireGuard-023e8a)
+
 This repository contains a comprehensive guide for installing and configuring **WireGuard VPN** on Ubuntu/Debian systems. WireGuard is a modern, secure, high-performance VPN designed to be simple and easy to deploy.
+
+![Architecture](./architecture.svg)
 
 ---
 
