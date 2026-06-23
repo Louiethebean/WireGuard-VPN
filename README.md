@@ -127,6 +127,17 @@ Pull requests are welcome! Open issues or submit improvements as needed.
 
 ---
 
+## 🎯 What I Learned / Skills Demonstrated
+
+- **Modern VPN protocol design** — why WireGuard's small codebase and Curve25519/ChaCha20 cryptography are a deliberate tradeoff against IPsec/OpenVPN's flexibility and complexity.
+- **Key-based peer authentication** — public/private keypairs replacing certificate authorities or shared secrets, and what that simplifies (and what it doesn't, like revocation).
+- **Network fundamentals** — routing client traffic through a tunnel interface, firewall rules for UDP, and the difference between full-tunnel and split-tunnel configs.
+- **Minimal attack surface thinking** — appreciating why a VPN with one open UDP port is easier to reason about securely than a stack of legacy protocol options.
+
+**Problem solved:** a from-scratch, secure remote-access VPN setup that avoids the configuration sprawl of older VPN protocols.
+
+---
+
 ## 📚 Resources
 
 - [WireGuard Official Site](https://www.wireguard.com/)
