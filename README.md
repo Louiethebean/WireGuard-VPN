@@ -1,4 +1,4 @@
-# 🔐 WireGuard VPN Installation & Configuration Guide
+# WireGuard VPN Installation & Configuration Guide
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![Platform](https://img.shields.io/badge/platform-Ubuntu%20%7C%20Debian-orange) ![Tool](https://img.shields.io/badge/tool-WireGuard-023e8a)
 
@@ -8,13 +8,13 @@ This repository contains a comprehensive guide for installing and configuring **
 
 ---
 
-## 📘 What Is WireGuard?
+## What Is WireGuard?
 
 [WireGuard](https://www.wireguard.com/) is a fast and modern VPN protocol that uses state-of-the-art cryptography and is built into the Linux kernel. It offers better performance, lower attack surface, and easier setup compared to traditional VPNs like OpenVPN or IPSec.
 
 ---
 
-## 📋 Requirements
+## Requirements
 
 - Ubuntu 18.04+ or Debian 10+
 - Root or sudo access
@@ -22,7 +22,7 @@ This repository contains a comprehensive guide for installing and configuring **
 
 ---
 
-## 🚀 Installation Steps (Ubuntu/Debian)
+## Installation Steps (Ubuntu/Debian)
 
 ### 1. Update System
 
@@ -53,7 +53,7 @@ sudo sysctl -p
 
 ---
 
-## 🔐 Key Generation
+## Key Generation
 
 On **both server and client**, generate private/public key pairs:
 
@@ -63,7 +63,7 @@ wg genkey | tee privatekey | wg pubkey > publickey
 
 ---
 
-## 🖥 Server Configuration
+## Server Configuration
 
 Edit `/etc/wireguard/wg0.conf`:
 
@@ -80,7 +80,7 @@ AllowedIPs = 10.0.0.2/32
 
 ---
 
-## 💻 Client Configuration
+## Client Configuration
 
 Edit `/etc/wireguard/wg0.conf`:
 
@@ -98,7 +98,7 @@ PersistentKeepalive = 25
 
 ---
 
-## ▶️ Start WireGuard
+## ▶Start WireGuard
 
 ```bash
 sudo systemctl enable wg-quick@wg0
@@ -113,7 +113,7 @@ sudo wg show
 
 ---
 
-## 🔒 Firewall Configuration (Optional)
+## Firewall Configuration (Optional)
 
 Use `ufw` or `iptables` to allow UDP 51820:
 
@@ -121,13 +121,13 @@ Use `ufw` or `iptables` to allow UDP 51820:
 sudo ufw allow 51820/udp
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Pull requests are welcome! Open issues or submit improvements as needed.
 
 ---
 
-## 🎯 What I Learned / Skills Demonstrated
+## What I Learned / Skills Demonstrated
 
 - **Modern VPN protocol design** — why WireGuard's small codebase and Curve25519/ChaCha20 cryptography are a deliberate tradeoff against IPsec/OpenVPN's flexibility and complexity.
 - **Key-based peer authentication** — public/private keypairs replacing certificate authorities or shared secrets, and what that simplifies (and what it doesn't, like revocation).
@@ -138,7 +138,7 @@ Pull requests are welcome! Open issues or submit improvements as needed.
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [WireGuard Official Site](https://www.wireguard.com/)
 - [WireGuard Docs](https://www.wireguard.com/install/)
@@ -146,10 +146,10 @@ Pull requests are welcome! Open issues or submit improvements as needed.
 
 ---
 
-## 📄 License
+## License
 
 MIT License. See [LICENSE](./MIT%20License.txt) for more details.
 
 ---
 
-🔐 WireGuard offers fast, secure, and simple VPN connectivity — get started today!
+WireGuard offers fast, secure, and simple VPN connectivity — get started today!
