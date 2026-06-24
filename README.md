@@ -121,6 +121,37 @@ Use `ufw` or `iptables` to allow UDP 51820:
 sudo ufw allow 51820/udp
 ```
 
+---
+
+## Tooling: Peer Provisioning Automation
+
+Adding a peer by hand means generating a keypair, picking an unused IP, and hand-writing two config blocks — easy to get wrong (duplicate IP, mismatched keys) as the peer list grows. `scripts/wg_peer_manager.py` automates all three steps and tracks issued peers in a registry.
+
+```bash
+pip install -r scripts/requirements.txt
+python scripts/wg_peer_manager.py add laptop \
+  --subnet 10.8.0.0/24 \
+  --registry peers.json \
+  --server-public-key <server's public key> \
+  --server-endpoint vpn.example.com:51820
+```
+
+What it does:
+- Generates a real Curve25519 keypair in Python (`cryptography`'s X25519 implementation) — no dependency on the `wg` binary being installed, so it runs anywhere
+- Allocates the next unused IP in the subnet, automatically skipping the address reserved for the server and any already-issued peer
+- Renders the exact `[Peer]` block to paste into the server's `wg0.conf`, and a ready-to-import client `.conf`
+- Maintains a `peers.json` registry of issued peers (name, public key, address, issue date) — and never writes private keys to that shared file
+- Rejects duplicate peer names before they collide
+
+Run the test suite (no live WireGuard server needed — it's pure key generation and IP math):
+
+```bash
+pip install pytest
+pytest tests/
+```
+
+---
+
 ## Contributing
 
 Pull requests are welcome! Open issues or submit improvements as needed.
